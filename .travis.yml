@@ -1,0 +1,23 @@
+language: ruby
+rvm:
+  - "2.3.1"
+before_script:
+  - sudo service postgresql start
+  - cd pesquini/
+  - gem install rspec rspec-rails simplecov
+  - bundle install
+  - psql -c 'create database pesquini_test;' -U postgres;
+  - psql -c 'create user pesquini;' -U postgres;
+  - rake db:migrate
+  - rake db:setup
+  - cd pesquini
+deploy:
+  provider: heroku
+  api_key:
+    secure: e0ee41a1-482c-48d8-95c9-3bf1b8b6ddf5
+  app: gcs-pesquini
+  on:
+    repo: GCSTrabalhoFinal/pesquini
+script:
+- bundle exec rspec spec
+- bundle exec cucumber
