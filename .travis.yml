@@ -19,8 +19,6 @@ before_script:
   - psql -c "CREATE USER pesquini CREATEDB CREATEROLE INHERIT LOGIN" || true
   - psql -c "CREATE DATABASE pesquini_development WITH OWNER = pesquini" || true
   - psql -c "CREATE DATABASE pesquini_test WITH OWNER = pesquini" || true
-  - psql -c 'create database pesquini_test;' -U postgres;
-  - psql -c 'create user pesquini;' -U postgres;
   # - cd pesquini
 deploy:
   provider: heroku
