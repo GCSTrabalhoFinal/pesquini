@@ -19,8 +19,11 @@ before_script:
   - psql -c "CREATE USER pesquini CREATEDB CREATEROLE INHERIT LOGIN" || true
   - psql -c "CREATE DATABASE pesquini_development WITH OWNER = pesquini" || true
   - psql -c "CREATE DATABASE pesquini_test WITH OWNER = pesquini" || true
-  - sudo cd script/
-  - sudo sh install.sh
+  - cd script/
+  - psql -d pesquini_development -f pesquini_development.sql
+  - psql -d pesquini_test -f pesquini_development.sql
+  - cd ..
+  - bundle install
   # - cd pesquini
 deploy:
   provider: heroku
