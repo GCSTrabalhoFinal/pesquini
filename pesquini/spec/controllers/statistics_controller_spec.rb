@@ -10,12 +10,12 @@ RSpec.describe StatisticsController, :type => :controller do
 
   
   describe "GET" do
-    describe '#sanction_by_state_graph' do
-      it "should work" do
-        get :sanction_by_state_graph
-        expect(response).to have_http_status(:success)
-      end
-    end
+    # describe '#sanction_by_state_graph' do
+    #   it "should work" do
+    #     get :sanction_by_state_graph
+    #     expect(response).to have_http_status(:success)
+    #   end
+    # end
 
     describe '#index' do
       it "should work" do
