@@ -87,6 +87,10 @@ Vagrant.configure("2") do |config|
     curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
     sudo apt-get install -y nodejs
     sudo apt-get install -y npm -g
+    sudo apt-get autoremove
+    sudo apt-get autoclean
+    sudo apt-get update
+    cd /vagrant/
     sudo npm update --save-dev
     sudo npm install gulp -g --save-dev
     sudo npm link gulp
@@ -98,10 +102,7 @@ Vagrant.configure("2") do |config|
     sudo npm link browser-sync
     sudo npm install del
     sudo npm link del
-    sudo apt-get autoremove
-    sudo apt-get autoclean
-    sudo apt-get update
-    cd /vagrant/
+    # sudo npm rebuild node-sass
     bundle install
     bundle update
   SHELL
