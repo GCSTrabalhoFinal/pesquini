@@ -8,7 +8,9 @@ rvm:
 addons:
   postgresql: "9.6"
 before_script:
-  - sudo service postgresql start
+  - echo "local all postgres trust" | sudo tee /etc/postgresql/9.6/main/pg_hba.conf
+  - echo "local all all trust" | sudo tee /etc/postgresql/9.6/main/pg_hba.conf
+  - sudo service postgresql reload
   - cd pesquini/
   - gem install bundler
   - gem install rspec rspec-rails simplecov
