@@ -9,13 +9,8 @@ addons:
   postgresql: "9.6"
 before_script:
   - sudo service postgresql start
-  - sudo su
-  - cd
-  - echo "local     all         postgres                          trust" > /etc/postgresql/9.6/main/pg_hba.conf
-  - echo "local     all         all                               trust" >> /etc/postgresql/9.6/main/pg_hba.conf
-  - service postgresql reload
-  - exit
   - cd pesquini/
+  - gem install bundler
   - gem install rspec rspec-rails simplecov
   - bundle install
   - psql -c "DROP DATABASE pesquini_development" || true
@@ -26,8 +21,6 @@ before_script:
   - psql -c "CREATE DATABASE pesquini_test WITH OWNER = pesquini" || true
   - psql -c 'create database pesquini_test;' -U postgres;
   - psql -c 'create user pesquini;' -U postgres;
-  - rake db:setup
-  - rake db:migrate
   # - cd pesquini
 deploy:
   provider: heroku
@@ -37,5 +30,6 @@ deploy:
   on:
     repo: GCSTrabalhoFinal/pesquini
 script:
-- bundle exec rspec spec
-- bundle exec cucumber
+    - bundle exec rake db:setup
+    - bundle exec rspec spec
+    - bundle exec cucumber
