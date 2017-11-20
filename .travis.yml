@@ -12,6 +12,12 @@ before_script:
   - cd pesquini/
   - gem install rspec rspec-rails simplecov
   - bundle install
+  - psql -c "DROP DATABASE pesquini_development" || true
+  - psql -c "DROP DATABASE pesquini_test" || true
+  - psql -c "DROP USER pesquini" || true
+  - psql -c "CREATE USER pesquini CREATEDB CREATEROLE INHERIT LOGIN" || true
+  - psql -c "CREATE DATABASE pesquini_development WITH OWNER = pesquini" || true
+  - psql -c "CREATE DATABASE pesquini_test WITH OWNER = pesquini" || true
   - psql -c 'create database pesquini_test;' -U postgres;
   - psql -c 'create user pesquini;' -U postgres;
   - rake db:migrate
