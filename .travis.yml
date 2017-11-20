@@ -7,8 +7,6 @@ rvm:
   - "2.3.1"
 addons:
   postgresql: "9.5.4"
-before_deploy:
-  - git commit -a
 before_script:
   - sudo service postgresql start
   - cd pesquini/
