@@ -37,6 +37,7 @@ before_script:
      - psql -c "CREATE DATABASE pesquini_test WITH OWNER = pesquini" || true
      - psql -d pesquini_development -f pesquini_development.sql
      - psql -d pesquini_test -f pesquini_development.sql
+     - cd ..
      - gem install bundler
      - gem install rspec rspec-rails simplecov
      - bundle install
