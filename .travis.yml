@@ -1,9 +1,17 @@
 language: ruby
+notifications:
+  email:
+    recipients:
+      - rafael.rabetti@gmail.com
 rvm:
   - "2.3.1"
+addons:
+  postgresql: "9.5.4"
+# before_deploy:
+  # - cd pesquini/
 before_script:
   - sudo service postgresql start
-  - cd pesquini/
+  # - cd pesquini/
   - gem install rspec rspec-rails simplecov
   - bundle install
   - psql -c 'create database pesquini_test;' -U postgres;
