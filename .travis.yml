@@ -6,9 +6,15 @@ notifications:
 rvm:
   - "2.3.1"
 addons:
-  postgresql: "9.5.4"
+  postgresql: "9.6"
 before_script:
-  - sudo service postgresql start
+  - - sudo service postgresql start
+  - sudo su
+  - cd
+  - echo "local     all         postgres                          trust" > /etc/postgresql/9.6/main/pg_hba.conf
+  - echo "local     all         all                               trust" >> /etc/postgresql/9.6/main/pg_hba.conf
+  - service postgresql reload
+  - exit 
   - cd pesquini/
   - gem install rspec rspec-rails simplecov
   - bundle install
@@ -20,8 +26,8 @@ before_script:
   - psql -c "CREATE DATABASE pesquini_test WITH OWNER = pesquini" || true
   - psql -c 'create database pesquini_test;' -U postgres;
   - psql -c 'create user pesquini;' -U postgres;
-  - rake db:migrate
   - rake db:setup
+  - rake db:migrate
   # - cd pesquini
 deploy:
   provider: heroku
