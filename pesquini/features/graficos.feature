@@ -8,9 +8,3 @@ Cenario: Ver grafico de sanções por tipo
 Dado que eu estou na pagina "/statistics"
 Quando eu clico no link "Clique aqui para ser redirecionado para a página..."
 Entao eu vejo o texto "Filtrar sanções por Estado:"
-
-Cenário: Ver grafico de estados com mais sanções
-
-Dado que eu estou na pagina "/statistics"
-Quando eu clico no link "Clique aqui para ser redirecionado para a página."
-Entao eu vejo o texto "Filtrar sanções por Ano:"
