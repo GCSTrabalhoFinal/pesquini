@@ -83,6 +83,21 @@ Vagrant.configure("2") do |config|
     gem install bundler
     gem install nokogiri -v '1.6.8'
     gem install rails
+    sudo apt-get install curl
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    sudo apt-get install -y npm -g
+    sudo npm update --save-dev
+    sudo npm install gulp -g --save-dev
+    sudo npm link gulp
+    sudo npm install gulp-sass --save-dev
+    sudo npm link gulp-sass
+    sudo npm install --save uglify-js
+    sudo npm link uglify-js
+    sudo npm install browser-sync
+    sudo npm link browser-sync
+    sudo npm install del
+    sudo npm link del
     sudo apt-get autoremove
     sudo apt-get autoclean
     sudo apt-get update
