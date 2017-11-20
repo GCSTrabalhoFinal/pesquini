@@ -19,7 +19,7 @@ before_script:
   - psql -c "CREATE USER pesquini CREATEDB CREATEROLE INHERIT LOGIN" || true
   - psql -c "CREATE DATABASE pesquini_development WITH OWNER = pesquini" || true
   - psql -c "CREATE DATABASE pesquini_test WITH OWNER = pesquini" || true
-  - cd script/
+  - sudo cd script/
   - sudo sh install.sh
   # - cd pesquini
 deploy:
