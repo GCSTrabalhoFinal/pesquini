@@ -28,6 +28,7 @@ before_script:
   # - bundle install
   # - cd pesquini
      - sudo service postgresql start
+     - cd pesquini/script
      - psql -c "DROP DATABASE pesquini_development" || true
      - psql -c "DROP DATABASE pesquini_test" || true
      - psql -c "DROP USER pesquini" || true
@@ -36,7 +37,6 @@ before_script:
      - psql -c "CREATE DATABASE pesquini_test WITH OWNER = pesquini" || true
      - psql -d pesquini_development -f pesquini_development.sql
      - psql -d pesquini_test -f pesquini_development.sql
-     - cd pesquini/
      - gem install bundler
      - gem install rspec rspec-rails simplecov
      - bundle install
