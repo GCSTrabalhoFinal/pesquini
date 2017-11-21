@@ -4,38 +4,44 @@
   sudo: true
   vars:
     system_packages:
-      -postgresql-common
-      -postgresql
-      -nodejs
-      -nodejs-legacy
-      -git
-      -curl
-      -automake
-      -build-essential
-      -bison
-      -libpq-dev
-      -libssl-dev
-      -libtool
-      -libcurl4-openssl-dev
-      -libyaml-dev
-      -libreadline-dev
-      -libxml2-dev
-      -libxslt1-dev
-      -libffi-dev
-      -libgdbm-dev
-      -libncurses5-dev
-      -libsqlite3-dev
-      -sqlite3
-      -zlib1g-dev
-      -python-software-properties
+      - postgresql-common
+      - postgresql-9.6
+      - nodejs
+      - nodejs-legacy
+      - git
+      - curl
+      - automake
+      - build-essential
+      - bison
+      - libpq-dev
+      - libssl-dev
+      - libtool
+      - libcurl4-openssl-dev
+      - libyaml-dev
+      - libreadline-dev
+      - libxml2-dev
+      - libxslt1-dev
+      - libffi-dev
+      - libgdbm-dev
+      - libncurses5-dev
+      - libsqlite3-dev
+      - sqlite3
+      - zlib1g-dev
+      - python-software-properties
 
   tasks:
     - name: Install system packages
       apt: pkg={{ item }} update-cache=yes
       with_items: "{{ system_packages }}"
 
-    - name: Install Bundler
-      command: rvm alias create default ruby-2.3.1
+    - name: Download rvm
+      shell: bash -lc '\curl -sSL https://get.rvm.io | bash -s stable'
+
+    - name: Install ruby 2.3.1
+      shell: bash -lc 'source /home/ec2-user/.rvm/scripts/rvm && rvm install 2.3.1'
+
+    - name: Install bundler
+      shell: bash -lc 'gem install bundler'
 
     - name: Update Rubygems
       command: gem update --system
