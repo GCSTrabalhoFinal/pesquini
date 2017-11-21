@@ -44,10 +44,27 @@ Vagrant.configure("2") do |web|
       sudo apt-get autoremove
       sudo apt-get autoclean
       sudo apt-get update
-      cd /vagrant/
+      sudo service postgresql start
+      cd /vagrant/pesquini/script
+      sudo psql -c "DROP DATABASE pesquini_development" || true
+      sudo psql -c "DROP DATABASE pesquini_test" || true
+      sudo psql -c "DROP USER pesquini" || true
+      sudo psql -c "CREATE USER pesquini CREATEDB CREATEROLE INHERIT LOGIN" || true
+      sudo psql -c "CREATE DATABASE pesquini_development WITH OWNER = pesquini" || true
+      sudo psql -c "CREATE DATABASE pesquini_test WITH OWNER = pesquini" || true
+      sudo psql -d pesquini_development -f pesquini_development.sql
+      sudo psql -d pesquini_test -f pesquini_development.sql
+      cd ..
+      bundle install
+      bundle update
+      cd ..
       sudo npm update --save-dev
       sudo npm install gulp -g --save-dev
       sudo npm link gulp
+      sudo npm install gulp -g gulp-uglify
+      sudo npm link gulp-uglify
+      sudo npm install gulp -g gulp-cssnano
+      sudo npm link gulp-cssnano
       sudo npm install gulp-sass --save-dev
       sudo npm link gulp-sass
       sudo npm install --save uglify-js
@@ -57,7 +74,5 @@ Vagrant.configure("2") do |web|
       sudo npm install del
       sudo npm link del
       sudo npm rebuild node-sass
-      bundle install
-      bundle update
     SHELL
 end
