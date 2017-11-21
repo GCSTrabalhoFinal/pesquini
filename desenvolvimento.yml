@@ -1,0 +1,50 @@
+---
+
+- hosts: web
+  sudo: true
+  vars:
+    system_packages:
+      -postgresql-common
+      -postgresql
+      -nodejs
+      -nodejs-legacy
+      -git
+      -curl
+      -automake
+      -build-essential
+      -bison
+      -libpq-dev
+      -libssl-dev
+      -libtool
+      -libcurl4-openssl-dev
+      -libyaml-dev
+      -libreadline-dev
+      -libxml2-dev
+      -libxslt1-dev
+      -libffi-dev
+      -libgdbm-dev
+      -libncurses5-dev
+      -libsqlite3-dev
+      -sqlite3
+      -zlib1g-dev
+      -python-software-properties
+
+  tasks:
+    - name: Install system packages
+      apt: pkg={{ item }} update-cache=yes
+      with_items: "{{ system_packages }}"
+
+    - name: Install Bundler
+      command: rvm alias create default ruby-2.3.1
+
+    - name: Update Rubygems
+      command: gem update --system
+
+    - name: Install rails
+      command: gem install rails
+
+    - name: Install nokogiri
+      command: gem install nokogiri -v '1.6.8'
+
+    - name: install python 2
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)

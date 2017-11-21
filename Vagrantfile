@@ -3,20 +3,22 @@
 Vagrant.configure("2") do |config|
 
   config.vm.define "web" do |web|
-    config.vm.box = "ubuntu/xenial64"
+    web.vm.box = "ubuntu/xenial64"
 
-    config.vm.network :forwarded_port, guest: 3000, host: 3000, auto_correct: true # rails application
-    config.vm.network :forwarded_port, guest: 5432,  host: 5532, auto_correct: true  # postgresql
+    web.vm.network :forwarded_port, guest: 3000, host: 3000, auto_correct: true # rails application
+    web.vm.network :forwarded_port, guest: 5432,  host: 5532, auto_correct: true  # postgresql
+    web.vm.network "private_network", ip: "192.168.1.10"
 
-    config.vm.provider "virtualbox" do |vb|
+    web.vm.provider "virtualbox" do |vb|
       vb.gui = false
       vb.memory = "1024"
     end
-  
+
     web.vm.provision :shell, path: "install-rvm.sh", args: "stable", privileged: false
     web.vm.provision :shell, path: "install-ruby.sh", args: "2.3.1", privileged: false
     web.vm.provision :shell, path: "install-ruby.sh", args: "2.3.1 rails haml", privileged: false
     web.vm.provision :shell, path: "install-postgresql.sh", args: "9.6", privileged: false
+    web.vm.provision "shell", inline: "apt-get install -y python"
 
     web.vm.provision "ansible" do |ansible|
       ansible.playbook = "desenvolvimento.yml"
